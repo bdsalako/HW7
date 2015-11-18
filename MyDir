@@ -1,0 +1,28 @@
+import java.io.*;
+
+public class MyDir{
+	public static void listMyDir(File currentDir) throws IOException {
+		String str;
+		File[] filesList = currentDir.listFiles();
+		
+		for(int i =0; i <filesList.length; i++){
+			if(filesList[i].isDirectory()){
+				System.out.print("___" + filesList[i].getName());
+				System.out.println();
+				listMyDir(filesList[i]);
+			}
+			if(filesList[i].isFile())
+				System.out.println("   |___" + filesList[i].getName());
+			System.out.println();	
+		}
+	}
+	
+	public static void main(String[] args) throws IOException{
+    File currentDir = new File("./");
+	File file = new File("./dir_tree.txt");
+	FileOutputStream fout = new FileOutputStream(file);
+	PrintStream printS = new PrintStream(fout);
+	System.setOut(printS);
+    listMyDir(currentDir);
+	}
+}
